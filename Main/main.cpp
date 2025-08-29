@@ -7,14 +7,14 @@
 template<typename T>
 class Vector {
 public:
-    Vector():data(nullptr),size(0),capacity(0){}
-    explicit Vector(const size_t sz)
+    Vector():data(nullptr),size(0),capacity(0){std::cout<<"Null"<<std::endl;}
+    explicit Vector(const size_t sz) //+
     {
         size=sz;
         capacity=size;
         data=new T[capacity];
     }
-    Vector(const Vector& rhs)
+    Vector(const Vector& rhs) //+
     {
         size=rhs.size;
         capacity=rhs.capacity;
@@ -23,87 +23,90 @@ public:
         {
             new (data+i) T(rhs.data[i]);
         }
+        std::cout<<"Vector copy constructor"<<std::endl;
 
     }
-    Vector(const size_t sz,const T& value) {
+    Vector(const size_t sz,const T& value) { //+
         size=sz;
         capacity=size;
         data=new T[capacity];
         for (size_t i=0;i<size;i++) {
             new (data+i) T(value);
         }
+        std::cout<<"Created Vector"<<std::endl;
     }
-    Vector& operator=(const Vector& rhs) {
-        if (this!=&rhs) {
-            size=rhs.size;
-            capacity=rhs.capacity;
-            data=new T[capacity];
-            for (size_t i=0;i<size;i++)
-            {
-                new (data+i) T(rhs.data[i]);
-            }
-        }
+    void swap(Vector<T>& other) noexcept {
+        std::swap(size, other.size);
+        std::swap(capacity, other.capacity);
+        std::swap(data, other.data);
+    }
+    Vector& operator=(const Vector& rhs) { //
+        Vector temp(rhs);
+        swap(temp);
+        std::cout<<"Operator assigned"<<std::endl;
         return *this;
     }
     Vector(Vector&& rhs) noexcept {
-        size=rhs.size;
-        capacity=rhs.capacity;
-        data=new T[capacity];
-        for (size_t i=0;i<size;i++) {
-            new (data+i) T(std::move(rhs.data[i]));
-        }
+        swap(*this, rhs);
         rhs.size=0;
         rhs.capacity=0;
         rhs.data=nullptr;
+        std::cout<<"Move constructor"<<std::endl;
     }
     Vector(std::initializer_list<T> il) {
         size=il.size();
         capacity=size;
         data=new T[capacity];
         for (size_t i=0;i<size;i++) {
-            new (data+i) T(std::move(il.begin()[i]));
+            new (data+i) T(il.begin()[i]);
         }
+        std::cout<<"initializer list"<<std::endl;
     }
     Vector& operator=(std::initializer_list<T> il) {
-        if (this!=&il) {
-            size=il.size();
-            capacity=size;
-            data=new T[capacity];
-            for (size_t i=0;i<size;i++) {
-                new (data+i) T(std::move(il.begin()[i]));
-            }
-        }
-        return *this;
+
+            Vector tmp(il);
+            swap(*this,tmp);
+            std::cout<<"copy init list"<<std::endl;
+            return *this;
     }
     ~Vector() {
+        std::cout<<"destructor"<<std::endl;
         delete[] data;
     }
-    const Vector& operator[](size_t index) const {
+    const T& operator[](size_t index) const {
+        return data[index];
+    }
+    T& operator[](size_t index)  {
         return data[index];
     }
 
-    [[nodiscard]]Vector& at(size_t index) const {
+    const T& at(size_t index) const {
+        if (index>=size) throw std::out_of_range("index out of range");
+        return data[index];
+    }
+    T& at(size_t index)  {
         if (index>=size) throw std::out_of_range("index out of range");
         return data[index];
     }
     void reserve(const size_t sz) {
         if (sz<=capacity) {return;}
-        T* newdata=reinterpret_cast<T*>(new char(sz*sizeof(T)));
+        T* newData=reinterpret_cast<T*>(new char[sz*sizeof(T)]);
         for (size_t i=0;i<size;i++) {
-            new (newdata+i) T(std::move(data[i]));
+            new (newData+i) T(data[i]);
         }
         for (size_t i=0;i<size;i++) {
             data[i].~T();
         }
         delete [] reinterpret_cast<char*>(data);
-        data=newdata;
+        data=newData;
         capacity=sz;
     }
     void push_back(T&& value) {
         if (size==capacity) {
-            capacity*=2;
+           reserve(capacity*2);
         }
-        data[size++]=std::move(value);
+        data[size]=T(std::move(value));
+        size++;
     }
     void pop_back() {
         (data+size)->~T();
@@ -117,13 +120,8 @@ public:
         return capacity;
     }
     void print() const {
-        if (size>0) {
             for (size_t i=0;i<size;i++) {
                 std::cout << data[i] << " ";
-            }
-        }
-        else {
-            throw std::out_of_range("vector is empty");
         }
     }
 
@@ -133,16 +131,10 @@ private:
     size_t capacity;
 };
 int main() {
-    Vector<int> tmp;
-    std::vector<int> v;
-    tmp.reserve(2);
-    v.reserve(10);
-    tmp.push_back(4);
-    std::cout<<v.size()<<" ";
-    std::cout<<v.capacity()<<" ";
-    std::cout<<"size:"<<tmp.size_()<<" ";
-    std::cout<<"cap:"<<tmp.capacity_()<<std::endl;
-    std::string test;
-    tmp.print();
+    Vector<int> hold;
+    hold.reserve(10);
+    std::cout<<"size:"<<hold.size_()<<" ";
+    std::cout<<"cap:"<<hold.capacity_()<<std::endl;
+    hold.print();
 return 0;
 }
