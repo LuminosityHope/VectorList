@@ -47,11 +47,17 @@ public:
         return *this;
     }
     Vector(Vector&& rhs) noexcept {
-        swap(*this, rhs);
+        swap( rhs);
         rhs.size=0;
         rhs.capacity=0;
         rhs.data=nullptr;
         std::cout<<"Move constructor"<<std::endl;
+    }
+    Vector& operator=(Vector&& rhs) {
+        Vector temp(std::move(rhs));
+        swap(temp);
+        std::cout<<"Move assigned"<<std::endl;
+        return *this;
     }
     Vector(std::initializer_list<T> il) {
         size=il.size();
@@ -147,17 +153,9 @@ private:
     size_t capacity;
 };
 int main() {
-    Vector<int> hold={4,5,1,7,6,9,2,1};
-    hold.push_back(6);
-    std::cout<<"size:"<<hold.size_()<<" ";
-    std::cout<<"cap:"<<hold.capacity_()<<std::endl;
-    hold.print();
-    hold.pop_back();
-    hold.reserve(20);
-    int m=hold.front();
-    std::cout<<m<<std::endl;
-    std::cout<<"size:"<<hold.size_()<<" ";
-    std::cout<<"cap:"<<hold.capacity_()<<std::endl;
-    hold.print();
-return 0;
+    Vector<int> tmp;
+
+    tmp=Vector{1,2,3,5};
+    tmp.print();
+    return 0;
 }
