@@ -74,7 +74,7 @@ public:
             data[i].~T();
         }
         std::cout<<"destroy list"<<std::endl;
-        delete [] data;
+        delete[] data;
     }
     const T& operator[](size_t index) const {
         return data[index];
@@ -95,7 +95,7 @@ public:
         if (sz<=capacity) {return;}
         T* newData=reinterpret_cast<T*>(new char[sz*sizeof(T)]);
         for (size_t i=0;i<size;i++) {
-            new (newData+i) T(data[i]);
+            new (newData+i) T(std::move(data[i]));
         }
         for (size_t i=0;i<size;i++) {
             data[i].~T();
@@ -115,6 +115,18 @@ public:
         (data+size)->~T();
         size--;
     }
+     const T& front() const {
+        if (size==0) {
+            throw std::out_of_range("empty list");
+        }
+        return data[0];
+    }
+    const T& back() const {
+        if (size==0) {
+            throw std::out_of_range("empty list");
+        }
+        return data[size-1];
+    }
 
      [[nodiscard]] size_t  size_() const {
         return size;
@@ -126,6 +138,7 @@ public:
             for (size_t i=0;i<size;i++) {
                 std::cout << data[i] << " ";
         }
+        std::cout << std::endl;
     }
 
 private:
@@ -136,6 +149,13 @@ private:
 int main() {
     Vector<int> hold={4,5,1,7,6,9,2,1};
     hold.push_back(6);
+    std::cout<<"size:"<<hold.size_()<<" ";
+    std::cout<<"cap:"<<hold.capacity_()<<std::endl;
+    hold.print();
+    hold.pop_back();
+    hold.reserve(20);
+    int m=hold.front();
+    std::cout<<m<<std::endl;
     std::cout<<"size:"<<hold.size_()<<" ";
     std::cout<<"cap:"<<hold.capacity_()<<std::endl;
     hold.print();
