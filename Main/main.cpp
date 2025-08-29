@@ -8,7 +8,7 @@ template<typename T>
 class Vector {
 public:
     Vector():data(nullptr),size(0),capacity(0){std::cout<<"Null"<<std::endl;}
-    explicit Vector(const size_t sz) //+
+    explicit Vector<T>(const size_t sz) //+
     {
         size=sz;
         capacity=size;
@@ -70,8 +70,11 @@ public:
             return *this;
     }
     ~Vector() {
-        std::cout<<"destructor"<<std::endl;
-        delete[] data;
+        for (size_t i=0;i<size;i++) {
+            data[i].~T();
+        }
+        std::cout<<"destroy list"<<std::endl;
+        delete [] data;
     }
     const T& operator[](size_t index) const {
         return data[index];
@@ -131,8 +134,8 @@ private:
     size_t capacity;
 };
 int main() {
-    Vector<int> hold;
-    hold.reserve(10);
+    Vector<int> hold={4,5,1,7,6,9,2,1};
+    hold.push_back(6);
     std::cout<<"size:"<<hold.size_()<<" ";
     std::cout<<"cap:"<<hold.capacity_()<<std::endl;
     hold.print();
