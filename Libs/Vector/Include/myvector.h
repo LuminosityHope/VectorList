@@ -42,9 +42,11 @@ public:
         std::swap(data, other.data);
     }
     Vector& operator=(const Vector& rhs) { //
-        Vector temp(rhs);
-        swap(temp);
-        std::cout<<"Operator assigned"<<std::endl;
+        if (this != &rhs) {
+            Vector temp(rhs);
+            swap(temp);
+            std::cout<<"Operator assigned"<<std::endl;
+        }
         return *this;
     }
     Vector(Vector&& rhs) noexcept {
