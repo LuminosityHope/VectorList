@@ -9,4 +9,4 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BINARY_DIR}/lib)
 add_subdirectory(Libs/List)
 add_subdirectory(Libs/Vector)
-add_subdirectory(Libs/IContainer)
+#[[add_subdirectory(Libs/IContainer)]]
