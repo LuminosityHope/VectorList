@@ -1,21 +1,23 @@
-#pragma once
+#ifndef MY_VECTOR_H
+#define MY_VECTOR_H
 
 #include <iostream>
 #include <utility>
 
 
+namespace myvector {
 
 template<typename T>
 class Vector{
 public:
     Vector():data(nullptr),size(0),capacity(0){}
-    explicit Vector<T>(const size_t sz) //+
+    explicit Vector<T>(const size_t sz)
     {
         size=sz;
         capacity=size;
         data=new T[capacity];
     }
-    Vector(const Vector& rhs) //+
+    Vector(const Vector& rhs)
     {
         size=rhs.size;
         capacity=rhs.capacity;
@@ -25,7 +27,7 @@ public:
         }
 
     }
-    Vector(const size_t sz,const T& value) { //+
+    Vector(const size_t sz,const T& value) {
         size=sz;
         capacity=size;
         data=new T[capacity];
@@ -140,15 +142,11 @@ public:
     [[nodiscard]] size_t  capacity_() const {
         return capacity;
     }
-    void print() const {
-            for (size_t i=0;i<size;i++) {
-                std::cout << data[i] << " ";
-        }
-        std::cout << std::endl;
-    }
 
 private:
     T* data;
     size_t size;
     size_t capacity;
 };
+}
+#endif
