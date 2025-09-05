@@ -1,18 +1,18 @@
-#pragma once
+#ifndef LIST_H
+#define LIST_H
 #include <iostream>
 #include <utility>
-
-
-template<typename T>
-class Node {
-public:
-    T value;
-    Node* next;
-    explicit Node(T val) : value(val),  next(nullptr) {}
-};
+namespace linkedlist {
 template<typename T>
 class LinkedList{
 public:
+    class Node {
+    public:
+        T value;
+        Node* next;
+        explicit Node(T val) : value(val),  next(nullptr) {}
+    };
+
   explicit LinkedList():first(nullptr),last(nullptr){}
     LinkedList(const std::initializer_list<T> list):first(nullptr),last(nullptr) {
       for (auto it: list) {
@@ -28,7 +28,7 @@ public:
       }
     }
     LinkedList(const LinkedList& other) : first(nullptr), last(nullptr) {
-        Node<T>* tmp = other.first;
+        Node* tmp = other.first;
         while (tmp != nullptr) {
             push_back(tmp->value);
             tmp = tmp->next;
@@ -52,7 +52,7 @@ public:
     LinkedList& operator=(const LinkedList& other) {
             if (this != &other) {
                 clear();
-                Node<T>* tmp = other.first;
+                Node* tmp = other.first;
                 while (tmp != nullptr) {
                     push_back(tmp->value);
                     tmp = tmp->next;
@@ -71,7 +71,7 @@ public:
     template<class... Args>
     void emplace_back(Args&&...args)
     {
-        Node<T>* tmp = new Node<T>(T(std::forward<Args>(args)...));
+        Node* tmp = new Node(T(std::forward<Args>(args)...));
         if (first == nullptr) {
             first = last = tmp;
         } else {
@@ -80,7 +80,7 @@ public:
         }
     }
     void pop_back() {
-      Node<T>* tmp = first;
+      Node* tmp = first;
       while (tmp->next!=last) {
           tmp = tmp->next;
       }
@@ -89,7 +89,7 @@ public:
       last->next = nullptr;
   }
     void push_front(const T value_) {
-      auto tmp = new Node<T>(value_);
+      auto tmp = new Node(value_);
       tmp->value = value_;
       tmp->next = first;
       first = tmp;
@@ -105,15 +105,6 @@ public:
     [[nodiscard]] T back() const {
       return last->value;
   }
-    void display() const
-    {
-      Node<T>* tmp = first;
-      while (tmp!=nullptr) {
-          std::cout << tmp->value << " ";
-          tmp = tmp->next;
-      }
-        std::cout << std::endl;
-     }
     void clear() {
         auto tmp = first;
         while (tmp!=nullptr) {
@@ -124,7 +115,7 @@ public:
         first=nullptr;
     }
     [[nodiscard]] size_t size() const {
-        Node<T>* tmp = first;
+        Node* tmp = first;
         size_t size = 0;
         while (tmp!=nullptr){
             tmp=tmp->next;
@@ -133,6 +124,8 @@ public:
         return size;
     }
 private:
-Node<T>* first;
-Node<T>* last;
+Node* first;
+Node* last;
 };
+}
+#endif
