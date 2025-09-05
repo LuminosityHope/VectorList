@@ -1,4 +1,3 @@
-
 if (NOT TEST_OUTPUT_PATH)
     set(TEST_OUTPUT_PATH ${CMAKE_BINARY_DIR}/test)
 endif ()
