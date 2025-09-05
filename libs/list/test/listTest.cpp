@@ -1,9 +1,12 @@
-#include <list>
+#include "list/list.h"
 
 #include "gtest/gtest.h"
-#include "List/list.h"
 
-TEST(ListTest,frontBackSize) {
+#include <list>
+
+using  namespace linkedlist;
+
+TEST(ListTest,frontBackSize_frontBackSizeString_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     LinkedList<std::string> dataInput2={"Home","Popi","Home","Popi"};
@@ -15,7 +18,7 @@ TEST(ListTest,frontBackSize) {
     ASSERT_EQ(dataInput2.back(),dataOutput2.back());
     ASSERT_EQ(dataInput2.size(),dataOutput2.size());
 }
-TEST(ListTest,pushFront) {
+TEST(ListTest,pushFront_pushStringData_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     LinkedList<std::string> dataInput2={"Home","Popi","Home","Popi"};
@@ -29,7 +32,7 @@ TEST(ListTest,pushFront) {
     ASSERT_EQ(dataInput.front(),dataOutput.front());
     ASSERT_EQ(dataInput.size(),dataOutput.size());
 }
-TEST(ListTest,pushBack) {
+TEST(ListTest,pushBack_pushBackString_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     LinkedList<std::string> dataInput2={"Home","Popi","Home","Popi"};
@@ -43,7 +46,7 @@ TEST(ListTest,pushBack) {
     ASSERT_EQ(dataInput2.size(),dataOutput2.size());
     ASSERT_EQ(dataInput2.back(),dataOutput2.back());
 }
-TEST(ListTest,Copy) {
+TEST(ListTest,copy_copyString_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     LinkedList<int> lstInput=dataInput;
@@ -52,7 +55,7 @@ TEST(ListTest,Copy) {
     ASSERT_EQ(lstInput.front(),lstOutput.front());
     ASSERT_EQ(lstInput.back(),lstOutput.back());
 }
-TEST(ListTest,emplaceBack) {
+TEST(ListTest,emplaceBack_emplaceBackString_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     dataInput.emplace_back(4);
@@ -60,7 +63,7 @@ TEST(ListTest,emplaceBack) {
     ASSERT_EQ(dataInput.size(),dataOutput.size());
     ASSERT_EQ(dataInput.back(),dataOutput.back());
 }
-TEST(ListTest,popBack) {
+TEST(ListTest,popBack_popBackString_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     LinkedList<std::string> dataInput2={"Home","Popi","Home","Popi"};
@@ -74,7 +77,7 @@ TEST(ListTest,popBack) {
     ASSERT_EQ(dataInput2.size(),dataOutput2.size());
     ASSERT_EQ(dataInput2.back(),dataOutput2.back());
 }
-TEST(ListTest,popFront) {
+TEST(ListTest,popFront_popFrontString_SuccessCompareWithStdList) {
     LinkedList<int> dataInput={1,2,3,4,5,7};
     std::list<int> dataOutput={1,2,3,4,5,7};
     LinkedList<std::string> dataInput2={"Home","Pipi","Home","Popi"};
