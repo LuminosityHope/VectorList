@@ -13,12 +13,6 @@ public:
 template<typename T>
 class LinkedList{
 public:
-    void is_empty() const {
-        if (first == nullptr)
-            std::cout<<"list is empty"<<std::endl;
-        else
-            std::cout<<"list is full"<<std::endl;
-    }
   explicit LinkedList():first(nullptr),last(nullptr){}
     LinkedList(const std::initializer_list<T> list):first(nullptr),last(nullptr) {
       for (auto it: list) {
