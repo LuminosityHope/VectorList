@@ -1,7 +1,11 @@
-#include "gtest/gtest.h"
-#include  "Vector/myvector.h"
+#include "vector/myvector.h"
 
-TEST(VectorTest,sizeCap) {
+#include "gtest/gtest.h"
+
+
+using namespace myvector;
+
+TEST(VectorTest,sizeCap_sizeCapString_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataInput2={"hello","world","hello","world"};
@@ -11,7 +15,7 @@ TEST(VectorTest,sizeCap) {
     ASSERT_EQ(dataInput2.size_(),dataOutput2.size());
     ASSERT_EQ(dataInput2.capacity_(),dataOutput2.capacity());
 }
-TEST(VectorTest,pushBack) {
+TEST(VectorTest,pushBack_pushBackString_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataInput2={"hello","world","hello","world"};
@@ -30,7 +34,7 @@ TEST(VectorTest,pushBack) {
     ASSERT_EQ(dataInput2.at(4),dataOutput2.at(4));
 }
 
-TEST(VectorTest,popBack) {
+TEST(VectorTest,popBack_popBackString_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataInput2={"hello","world","hello","world"};
@@ -46,7 +50,7 @@ TEST(VectorTest,popBack) {
     ASSERT_EQ(dataInput2.capacity_(),dataOutput2.capacity());
     ASSERT_EQ(dataInput[2],dataOutput[2]);
 }
-TEST(VectorTest,intReserve) {
+TEST(VectorTest,intReserve_stringReserve_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataInput2={"hello","world","hello","world"};
@@ -60,7 +64,7 @@ TEST(VectorTest,intReserve) {
     ASSERT_EQ(dataInput2.size_(),dataOutput2.size());
     ASSERT_EQ(dataInput2.capacity_(),dataOutput2.capacity());
 }
-TEST(VectorTest,emplaceBack) {
+TEST(VectorTest,emplaceBack_emplaceBackString_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataInput2={"hello","world","hello","world"};
@@ -76,7 +80,7 @@ TEST(VectorTest,emplaceBack) {
     ASSERT_EQ(dataInput.capacity_(),dataOutput.capacity());
     ASSERT_EQ(dataInput[6],dataOutput[6]);
 }
-TEST(VectorTest,backFront) {
+TEST(VectorTest,backFront_backFrongString_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataOutput2={"hello","world","hello","world"};
@@ -86,7 +90,7 @@ TEST(VectorTest,backFront) {
     ASSERT_EQ(dataInput2.back(),dataOutput2.back());
     ASSERT_EQ(dataInput2.front(),dataOutput2.front());
 }
-TEST(VectorTest,squareBrackets) {
+TEST(VectorTest,squareBrackets_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<std::string> dataInput2={"hello","world","hello","world"};
@@ -94,13 +98,13 @@ TEST(VectorTest,squareBrackets) {
     ASSERT_EQ(dataInput[3],dataOutput[3]);
     ASSERT_EQ(dataInput2[2],dataOutput2[2]);
 }
-TEST(VectorTest,constuct) {
+TEST(VectorTest,methodAt_SuccessCompareThrowWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     EXPECT_THROW(dataInput.at(7),std::out_of_range);
     EXPECT_THROW(dataOutput.at(7),std::out_of_range);
 }
-TEST(VectorTest,copy) {
+TEST(VectorTest,copy_CopyString_SuccessCompareWithStdVector) {
     Vector<int> dataInput={1,2,3,4,5,7};
     std::vector dataOutput={1,2,3,4,5,7};
     Vector<int> copy(dataInput);
