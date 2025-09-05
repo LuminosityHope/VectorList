@@ -1,2 +1,2 @@
-project(Main)
-target_link_libraries(Main  Vector List IContainer )
+project(main)
+target_link_libraries(main vector list )
